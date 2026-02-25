@@ -154,6 +154,7 @@ const data = await ref.current.getConditionalSelectionData();
 
 ## 贡献与开发
 
+https://github.com/1512-Yolo/conditional-selection.git
 1. 修改源码后可直接运行 `npm run dev` 查看效果
 2. 支持 monorepo 结构，组件统一从 packages/index.ts 导出
 3. 支持 less 样式
