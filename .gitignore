@@ -1,0 +1,24 @@
+# 依赖
+node_modules/
+
+# 构建产物
+dist/
+
+# 环境变量 & npm 发布 Token（敏感信息，禁止提交）
+.env
+.env.*
+.npmrc
+
+# 日志
+*.log
+npm-debug.log*
+
+# 编辑器
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# TypeScript 增量编译缓存
+*.tsbuildinfo

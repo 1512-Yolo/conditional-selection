@@ -1,0 +1,42 @@
+{
+  "devDependencies": {
+    "@microsoft/api-extractor": "^7.57.5",
+    "@types/node": "^25.3.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react-swc": "^3.11.0",
+    "less": "^4.5.1",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.1",
+    "vite-plugin-dts": "^4.5.4"
+  },
+  "name": "conditional-selection",
+  "version": "1.1.2",
+  "description": "",
+  "main": "dist/ui.cjs.js",
+  "module": "dist/ui.es.js",
+  "types": "dist/types/ui.es.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "directories": {
+    "doc": "docs",
+    "example": "example"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "dependencies": {
+    "use-immer": "^0.11.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "undefined",
+  "license": "MIT",
+  "type": "module"
+}

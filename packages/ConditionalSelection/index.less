@@ -1,0 +1,91 @@
+.conditional-selection {
+    width: 100%;
+
+    .create-box {
+        display: inline-block;
+        margin-bottom: 8px;
+        cursor: pointer;
+    }
+
+    .conditional-content {
+        width: 100%;
+    }
+}
+
+.relative-box {
+    position: relative;
+    width: 100%;
+
+    .conditional-list-box {
+        flex: 1;
+    }
+
+    .conditional-item {
+        display: flex;
+        align-items: center;
+        margin-top: 8px;
+    }
+
+    .conditional-list:first-child {
+        margin-top: -8px;
+    }
+
+    .right-box {
+        margin-left: 32px;
+    }
+}
+
+.link-line {
+    position: absolute;
+    z-index: 999;
+    height: 100%;
+    margin: 0 4px;
+
+    .link-label {
+        position: absolute;
+        top: 50%;
+        width: 22px;
+        color: #c85000;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+        background-color: #f9e5e5;
+        border-radius: 4px;
+        transform: translateY(-50%);
+    }
+}
+
+.link-line::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 10px;
+    width: 2px;
+    content: '';
+    background-color: #c85000;
+    opacity: 0.2;
+}
+
+.conditional-handle {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    .create-handle {
+        display: inline-block;
+        width: 50px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .del-handle {
+        display: inline-block;
+        font-size: 14px;
+        width: 24px;
+        cursor: pointer;
+    }
+
+    .del-handle:hover {
+        color: red;
+    }
+}
