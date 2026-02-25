@@ -2,12 +2,14 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc'
 import path from 'node:path'
 import dts from 'vite-plugin-dts'
+import { libInjectCss } from 'vite-plugin-lib-inject-css'
+
 export default defineConfig(({ command }) => {
     const isDev = command === 'serve'
     return {
-        plugins: [react(), dts({
+        plugins: [react(), libInjectCss(), dts({
             outDir: 'dist/types',
-            insertTypesEntry: true, //这是dts插件的配置，用于生成类型文件
+            insertTypesEntry: true,
             include: ['packages/**/*.ts', 'packages/**/*.tsx'],
             rollupTypes: true
         })],
