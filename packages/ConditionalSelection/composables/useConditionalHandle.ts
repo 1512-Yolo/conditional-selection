@@ -81,8 +81,6 @@ export interface IUseConditionalHandleReturn {
   createChildRules: (ruleData: TConditionalSelection) => void;
   delRules: (ruleData: TConditionalSelection, index: number) => void;
   getConditionalSelectionData: (validate?: boolean) => Promise<TConditionalSelection>;
-  isGroup: (ruleData: TConditionalSelection) => boolean;
-  getTempRules: (level?: number) => TConditionalSelection;
 }
 
 export function useConditionalHandle(props: TConditionalSelectionProps): IUseConditionalHandleReturn {
@@ -215,8 +213,6 @@ export function useConditionalHandle(props: TConditionalSelectionProps): IUseCon
     createChildRules,
     delRules,
     getConditionalSelectionData,
-    isGroup,
-    getTempRules,
     updateRulesData,
   };
 }

@@ -1,14 +1,12 @@
 import React, { useMemo } from 'react';
 import type {
   TConditionalSelection,
-  TConditionalSelectionDisabledProps,
 } from '../types';
+import { useConditionalContext } from '../composables/useConditionalContext';
 
 interface IConditionalHandleProps {
-  level: number;
   currentItemInfo: TConditionalSelection;
   isLast: boolean;
-  disabledConfig: Required<TConditionalSelectionDisabledProps>;
   onCreate: () => void;
   onCreateChildRules: () => void;
   onDel: () => void;
@@ -33,14 +31,13 @@ function allHave(individual?: Record<string, any>): boolean {
  * 规则操作按钮组（同级/子集/删除）
  */
 const ConditionalHandle: React.FC<IConditionalHandleProps> = ({
-  level,
   currentItemInfo,
   isLast,
-  disabledConfig,
   onCreate,
   onCreateChildRules,
   onDel,
 }) => {
+  const { level, disabledConfig } = useConditionalContext();
   /** 是否显示同级新增按钮：当前节点 level >= 1 且是最后一个 */
   const showCreate = useMemo(() => currentItemInfo.level >= 1 && isLast, [currentItemInfo.level, isLast]);
 

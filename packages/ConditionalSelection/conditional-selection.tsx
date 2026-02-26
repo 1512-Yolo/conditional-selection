@@ -2,10 +2,9 @@ import { useEffect, useRef, useImperativeHandle, forwardRef, useCallback } from 
 import { cloneDeep } from './utils';
 import ConditionalContent from './components/conditional-content';
 import { useConditionalHandle, getTempRules, isGroup, findNode } from './composables/useConditionalHandle';
+import { ConditionalContext } from './composables/useConditionalContext';
 import { type TConditionalSelectionProps } from './types';
 import './index.less';
-
-export type { TConditionalSelectionProps };
 
 const ConditionalSelection = forwardRef<
   { getConditionalSelectionData: (validate?: boolean) => Promise<any> },
@@ -65,6 +64,7 @@ const ConditionalSelection = forwardRef<
   );
 
   return (
+    <ConditionalContext.Provider value={{ level, disabledConfig }}>
     <div className="conditional-selection">
       {/* 新增条件按钮区域 */}
       {!disabledConfig.addItem &&
@@ -82,8 +82,6 @@ const ConditionalSelection = forwardRef<
         {isGroup(rulesData) && (rulesData.group as any[]).length > 0 ? (
           <ConditionalContent
             levelData={rulesData}
-            level={level}
-            disabledConfig={disabledConfig}
             onUpdateNode={handleUpdateNode}
             onCreateRules={createRules}
             onCreateChildRules={createChildRules}
@@ -101,6 +99,7 @@ const ConditionalSelection = forwardRef<
         )}
       </div>
     </div>
+    </ConditionalContext.Provider>
   );
 });
 

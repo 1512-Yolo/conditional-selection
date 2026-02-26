@@ -4,13 +4,12 @@ import ConditionalHandle from './conditional-handle';
 import {
   EConditionalSelectionLink,
   type TConditionalSelection,
-  type TConditionalSelectionDisabledProps,
 } from '../types';
 import { isGroup } from '../composables/useConditionalHandle';
+import { useConditionalContext } from '../composables/useConditionalContext';
+
 interface IConditionalContentProps {
   levelData: TConditionalSelection;
-  level: number;
-  disabledConfig: Required<TConditionalSelectionDisabledProps>;
   onUpdateNode: (nodeId: string, patch: Partial<TConditionalSelection>) => void;
   onCreateRules: (ruleData: TConditionalSelection) => void;
   onCreateChildRules: (ruleData: TConditionalSelection) => void;
@@ -38,14 +37,13 @@ function getLastCondition(index: number, group: TConditionalSelection[]): boolea
  */
 const ConditionalContent: React.FC<IConditionalContentProps> = ({
   levelData,
-  level,
-  disabledConfig,
   onUpdateNode,
   onCreateRules,
   onCreateChildRules,
   onDelRules,
   renderConditionItem,
 }) => {
+  const { disabledConfig } = useConditionalContext();
   const group = levelData.group as TConditionalSelection[];
 
   function handleLinkChange(value: EConditionalSelectionLink) {
@@ -79,8 +77,6 @@ const ConditionalContent: React.FC<IConditionalContentProps> = ({
                         <div key={child._id} className="conditional-item right-box">
                           <ConditionalContent
                             levelData={child}
-                            level={level}
-                            disabledConfig={disabledConfig}
                             onUpdateNode={onUpdateNode}
                             onCreateRules={onCreateRules}
                             onCreateChildRules={onCreateChildRules}
@@ -94,8 +90,6 @@ const ConditionalContent: React.FC<IConditionalContentProps> = ({
                       <div key={child._id} className="conditional-item right-box">
                         {renderConditionItem?.(child)}
                         <ConditionalHandle
-                          level={level}
-                          disabledConfig={disabledConfig}
                           currentItemInfo={child}
                           isLast={getLastCondition(childIndex, childRules)}
                           onCreate={() => onCreateRules(item)}
@@ -114,8 +108,6 @@ const ConditionalContent: React.FC<IConditionalContentProps> = ({
               <div className="conditional-item">
                 {renderConditionItem?.(item)}
                 <ConditionalHandle
-                  level={level}
-                  disabledConfig={disabledConfig}
                   currentItemInfo={item}
                   isLast={getLastCondition(index, group)}
                   onCreate={() => onCreateRules(levelData)}
