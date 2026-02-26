@@ -4,17 +4,17 @@
   <a href="./README.md">English</a> | <a href="./README.zh-CN.md">中文</a>
 </p>
 
-A lightweight React component library for building conditional rule trees. Supports recursive nesting, AND/OR grouping, dynamic add/remove, and fully customizable condition rows via render props.
+一个轻量级的 React 条件规则树组件库，支持递归嵌套、AND/OR 分组、动态增删，以及通过 render props 完全自定义条件行内容。
 
-## Installation
+## 安装
 
 ```bash
 npm install conditional-selection
 ```
 
-> **Peer dependencies:** `react >= 16.8.0`, `react-dom >= 16.8.0`
+> **同级依赖（peerDependencies）：** `react >= 16.8.0`，`react-dom >= 16.8.0`
 
-## Quick Start
+## 快速开始
 
 ```tsx
 import { ConditionalSelection } from 'conditional-selection';
@@ -36,28 +36,28 @@ export default function App() {
 }
 ```
 
-## Props
+## Props 参数说明
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `conditionalRules` | `TConditionalSelection \| null` | `undefined` | The condition tree data. Automatically initialized if `null` or `undefined`. |
-| `maxDeep` | `number` | `1` | Maximum recursion depth. Must be greater than `0`. |
-| `disabled` | `boolean \| TConditionalSelectionDisabledProps` | `false` | Disable all or specific operations. |
-| `onChange` | `(value: TConditionalSelection \| undefined) => void` | — | Callback fired when the tree data changes. |
-| `renderConditionRules` | `(item, change) => ReactNode` | — | Render prop for each condition row. Receives the current `INDIVIDUAL` node and an update handler. |
-| `renderCreateCondition` | `(params) => ReactNode` | — | Render prop to customize the "Add condition" button. |
+| 参数 | 类型 | 默认值 | 说明 |
+|------|------|--------|------|
+| `conditionalRules` | `TConditionalSelection \| null` | `undefined` | 条件树数据，传入 `null` 或 `undefined` 时自动初始化 |
+| `maxDeep` | `number` | `1` | 最大递归层级，必须大于 `0` |
+| `disabled` | `boolean \| TConditionalSelectionDisabledProps` | `false` | 禁用全部或部分操作 |
+| `onChange` | `(value: TConditionalSelection \| undefined) => void` | — | 数据变更回调 |
+| `renderConditionRules` | `(item, change) => ReactNode` | — | 条件行渲染插槽，参数为当前 `INDIVIDUAL` 节点和更新 handler |
+| `renderCreateCondition` | `(params) => ReactNode` | — | 自定义"添加条件"按钮的渲染插槽 |
 
-### `disabled` object shape
+### `disabled` 对象格式
 
 ```ts
 type TConditionalSelectionDisabledProps = {
-  addItem?: boolean;    // disable adding new conditions
-  delItem?: boolean;    // disable deleting conditions
-  linkChange?: boolean; // disable AND/OR toggle
+  addItem?: boolean;    // 禁用添加条件
+  delItem?: boolean;    // 禁用删除条件
+  linkChange?: boolean; // 禁用 AND/OR 切换
 };
 ```
 
-## Data Structure
+## 数据结构
 
 ```ts
 type TConditionalSelection<T = any> = {
@@ -70,12 +70,12 @@ type TConditionalSelection<T = any> = {
 };
 ```
 
-- **`group`** node — contains child nodes and an AND/OR relationship toggle.
-- **`individual`** node — a single condition row; its data lives in the `individual` field.
+- **`group`** 节点 — 包含子节点，支持 AND/OR 关系切换
+- **`individual`** 节点 — 单个条件行，自定义数据存放在 `individual` 字段中
 
-### Example Output
+### 数据示例
 
-**Flat structure** — two `individual` conditions joined by AND:
+**扁平结构** — 两个 `individual` 条件以 AND 连接：
 
 ```json
 {
@@ -100,7 +100,7 @@ type TConditionalSelection<T = any> = {
 }
 ```
 
-**Nested structure** — an `individual` AND a nested `group` (OR) at level 1:
+**嵌套结构** — 一个 `individual` 与一个嵌套 `group`（OR）并列于第 1 层：
 
 ```json
 {
@@ -139,18 +139,18 @@ type TConditionalSelection<T = any> = {
 }
 ```
 
-## Accessing Data via Ref
+## 通过 Ref 获取数据
 
 ```tsx
 const ref = useRef<any>(null);
 
 <ConditionalSelection ref={ref} ... />
 
-// Returns a deep clone of the current tree
+// 返回当前条件树的深拷贝
 const data = await ref.current.getConditionalSelectionData();
 ```
 
-## Custom Condition Row Example
+## 自定义条件行示例
 
 ```tsx
 const MyConditionRow = ({ item, onChange }) => {
@@ -158,30 +158,30 @@ const MyConditionRow = ({ item, onChange }) => {
   return (
     <div style={{ display: 'flex', gap: 8 }}>
       <select value={data.field ?? ''} onChange={e => onChange({ field: e.target.value })}>
-        <option value="">Select field</option>
-        <option value="name">Name</option>
+        <option value="">选择字段</option>
+        <option value="name">名称</option>
       </select>
       <select value={data.operator ?? ''} onChange={e => onChange({ ...data, operator: e.target.value })}>
-        <option value="">Select operator</option>
-        <option value="eq">Equals</option>
-        <option value="ne">Not equals</option>
+        <option value="">选择操作符</option>
+        <option value="eq">等于</option>
+        <option value="ne">不等于</option>
       </select>
       <input
         value={data.value ?? ''}
         onChange={e => onChange({ ...data, value: e.target.value })}
-        placeholder="Value"
+        placeholder="输入值"
       />
     </div>
   );
 };
 ```
 
-## Performance Tips
+## 性能优化建议
 
-- Wrap handlers and render props with `useCallback` to avoid unnecessary re-renders.
-- Use [React Profiler](https://react.dev/reference/react/Profiler) for deeper performance analysis.
+- 将 handler 和 render props 用 `useCallback` 包裹，避免不必要的重渲染
+- 如需深度性能分析，可借助 [React Profiler](https://react.dev/reference/react/Profiler)
 
-## Contributing
+## 贡献与开发
 
 ```bash
 git clone https://github.com/1512-Yolo/conditional-selection.git
@@ -190,7 +190,7 @@ npm install
 npm run dev
 ```
 
-Components are exported from `packages/index.ts`. Styles are written in Less (`packages/ConditionalSelection/index.less`).
+组件统一从 `packages/index.ts` 导出，样式使用 Less（`packages/ConditionalSelection/index.less`）编写。
 
 ## License
 
